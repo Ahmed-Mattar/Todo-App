@@ -35,3 +35,7 @@ todos.forEach(function(todo){
 document.querySelector('#add').addEventListener('click',function(e) {
     console.log('i am adding a new todo');
 });
+
+document.querySelector('#search').addEventListener('input',function(e){
+    console.log(e.target.value);
+});
