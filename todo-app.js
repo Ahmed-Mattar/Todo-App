@@ -16,26 +16,37 @@ const todos = [{
 }];
 
 
+// Starts
+const filter = {
+    searchText:' '
+}
 
-const incompleteTodos = todos.filter(function(todo){
-    return !todo.completed;
-})
+const renderTodos = function(todos){
+    document.querySelector('#todos').innerHTML = '';
+    todos.forEach(function(todo){
+        const p = document.createElement('p');
+        p.innerText = todo.text;
+        document.querySelector('#todos').appendChild(p);
+    });
+}
+
+renderTodos(todos);
+
+const filterTodos = function(todos,filter){
+    const filteredTodos = todos.filter(function(todo){
+        return todo.text.toLowerCase().includes(filter.searchText.toLowerCase());
+    });
+    return filteredTodos;
+}
 
 
-const summary = document.createElement('h2');
-summary.textContent = `You have ${incompleteTodos.length} todos left`;
-document.querySelector('body').appendChild(summary);
 
-todos.forEach(function(todo){
-    const p = document.createElement('p');
-    p.textContent = todo.text;
-    document.querySelector('body').appendChild(p);
-});
 
 document.querySelector('#add').addEventListener('click',function(e) {
     console.log('i am adding a new todo');
 });
 
-document.querySelector('#search').addEventListener('input',function(e){
-    console.log(e.target.value);
+document.querySelector('#search-text').addEventListener('input',function(e){
+    filter.searchText = e.target.value;
+    renderTodos(filterTodos(todos,filter));
 });
