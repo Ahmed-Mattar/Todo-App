@@ -40,13 +40,18 @@ const filterTodos = function(todos,filter){
 }
 
 
-
-
-document.querySelector('#add').addEventListener('click',function(e) {
-    console.log('i am adding a new todo');
-});
-
 document.querySelector('#search-text').addEventListener('input',function(e){
     filter.searchText = e.target.value;
     renderTodos(filterTodos(todos,filter));
+});
+
+document.querySelector('#new-todo').addEventListener('submit',function(e){
+    e.preventDefault();
+    const newTodo = {
+        text:e.target.elements.text.value,
+        completed:false
+    }
+    todos.push(newTodo);
+    renderTodos(todos);
+    e.target.elements.text.value = '';
 });
