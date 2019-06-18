@@ -39,9 +39,25 @@ const renderTodos = function (todos, filters) {
 
 //Get the DOM elements for an individual note
 const generateTodoDOM = function (todo){
-    const p = document.createElement('p');
-    p.textContent = todo.text;
-    return p ;
+    const todoEL = document.createElement('div');
+    const checkbox = document.createElement('input');
+    const todoText = document.createElement('span');
+    const removeButton = document.createElement('button')
+
+    //setup todo checkbox
+    checkbox.setAttribute("type", "checkbox");
+    todoEL.appendChild(checkbox);
+
+    //setup the todo text 
+    todoText.textContent = todo.text;
+    todoEL.appendChild(todoText);
+
+    //setup the remove button
+    removeButton.textContent = 'x';
+    todoEL.appendChild(removeButton);
+    
+
+    return todoEL ;
 }
 
 
