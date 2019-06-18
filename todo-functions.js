@@ -16,7 +16,6 @@ const saveTodos = function(todos){
 }
 
 // render application todos based on filters 
-
 const renderTodos = function (todos, filters) {
     const filteredTodos = todos.filter(function (todo) {
         const searchTextMatch = todo.text.toLowerCase().includes(filters.searchText.toLowerCase())
@@ -37,6 +36,17 @@ const renderTodos = function (todos, filters) {
     })
 }
 
+//remove todo by id
+const removeTodo = function(id){
+    const todoIndex = todos.findIndex(function(todo){
+        return todo.id === id ;
+    })
+
+    if(todoIndex > -1) {
+        todos.splice(todoIndex,1);
+    }
+}
+
 //Get the DOM elements for an individual note
 const generateTodoDOM = function (todo){
     const todoEL = document.createElement('div');
@@ -55,7 +65,11 @@ const generateTodoDOM = function (todo){
     //setup the remove button
     removeButton.textContent = 'x';
     todoEL.appendChild(removeButton);
-    
+    removeButton.addEventListener('click',function(e){
+        removeTodo(todo.id);
+        saveTodos(todos);
+        renderTodos(todos,filters);
+    })
 
     return todoEL ;
 }
